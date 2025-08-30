@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>キャリア診断</title>
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    width: 90%;
+    max-width: 500px;
+    padding: 30px;
+    text-align: center;
+    animation: fadeIn 0.8s ease-in-out;
+  }
+  h1 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+  }
+  .progress-bar {
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .progress {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #74ebd5, #4facfe);
+    transition: width 0.4s ease;
+  }
+  .question {
+    display: none;
+    font-size: 1.1em;
+    margin-bottom: 20px;
+  }
+  button {
+    background: #4facfe;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 20px;
+    margin: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: #3b8edc;
+  }
+  .result {
+    display: none;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-top: 20px;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>キャリア診断</h1>
+  <div class="progress-bar"><div class="progress" id="progress"></div></div>
+
+  <div id="q1" class="question">
+    <p>Q1: スマートフォンを買う時はセキュリティにこだわる？</p>
+    <button onclick="nextQuestion('q2', 20)">はい</button>
+    <button onclick="nextQuestion('q4', 20)">いいえ</button>
+  </div>
+
+  <div id="q2" class="question">
+    <p>Q2: 購入後のバージョンアップは新機能よりもウイルス対策やデータ保護が気になる？</p>
+    <button onclick="showResult('IT監査プロフェッショナル')">はい</button>
+    <button onclick="nextQuestion('q3', 40)">いいえ</button>
+  </div>
+
+  <div id="q3" class="question">
+    <p>Q3: スマートフォンを買った後はマニュアルを見るよりもまずは触ってみる？</p>
+    <button onclick="showResult('AI・デジタル戦略家')">はい</button>
+    <button onclick="showResult('IT監査プロフェッショナル')">いいえ</button>
+  </div>
+
+  <div id="q4" class="question">
+    <p>Q4: カメラ・SNS・アプリなどは使用感よりもスペックが大事？</p>
+    <button onclick="nextQuestion('q5', 40)">はい</button>
+    <button onclick="showResult('AI・デジタル戦略家')">いいえ</button>
+  </div>
+
+  <div id="q5" class="question">
+    <p>Q5: 動作や使い勝手に不満があるとき、自らカスタマイズしてしまう？</p>
+    <button onclick="showResult('AI監査ツールプロデューサー')">はい</button>
+    <button onclick="showResult('AI・デジタル戦略家')">いいえ</button>
+  </div>
+
+  <div id="result" class="result"></div>
+</div>
+
+<script>
+  let progress = 0;
+  document.getElementById('q1').style.display = 'block';
+
+  function nextQuestion(nextId, progressValue) {
+    document.querySelectorAll('.question').forEach(q => q.style.display = 'none');
+    document.getElementById(nextId).style.display = 'block';
+    progress = progressValue;
+    document.getElementById('progress').style.width = progress + '%';
+  }
+
+  function showResult(role) {
+    document.querySelectorAll('.question').forEach(q => q.style.display = 'none');
+    document.getElementById('progress').style.width = '100%';
+    const resultDiv = document.getElementById('result');
+    resultDiv.textContent = "あなたにおすすめのキャリアは：「" + role + "」です！";
+    resultDiv.style.display = 'block';
+  }
+</script>
+</body>
+</html>
